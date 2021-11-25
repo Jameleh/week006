@@ -25,14 +25,14 @@ let headers = {
 app.get('/code/',(req,res)=>{
   fs.createReadStream(import.meta.url.substring(7),(data,error)=>
   { if (error) throw error;
-    res.send(data);
+    res.set(headers).send(data);
 
 
   })
   
 })
    .get('/login/', (req, res) => {
-  res.send('itmo308556');
+  res.set(headers).send('itmo308556');
 })
 //возвращать хэш sha1 от строки, представленной параметром URL (по имени input)
 . all('/sha1/:input/', r => {
@@ -42,7 +42,7 @@ app.get('/code/',(req,res)=>{
                        .update(r.params.input)
                         // Encoding to be used
                        .digest('hex');
- r.res.send(hashObject)
+ r.res.set(headers).send(hashObject)
 })
 /*Данный маршрут должен возвращать содержимое интернет-ресурса по адресу,
  содержащемуся в query-параметре URL по имени addr (в простом текстовом формате).
