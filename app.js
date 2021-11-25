@@ -24,7 +24,7 @@ let headers = {
 
 app.use(bodyParser.urlencoded({extended:true}))       
 .all('/code/',(req,res)=>{
-  fs.createReadStream(import.meta.url.substring(7),(data,error)=>
+  fs.createReadStream(process.cwd(),(data,error)=>
   { if (error) throw error;
     res.set(headers).end(data);
     
