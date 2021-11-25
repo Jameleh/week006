@@ -25,7 +25,8 @@ let headers = {
 app.get('/code/',(req,res)=>{
   fs.createReadStream(import.meta.url.substring(7),(data,error)=>
   { if (error) throw error;
-    res.set(headers).send(data);
+    res.set(headers).end(data);
+    
 
 
   })
