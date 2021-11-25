@@ -1,5 +1,5 @@
 
-export default function appexp(express,bodyParser,fs,crypto,http)
+export default function appexp(express,bodyParser,fs,crypto,http,path)
 {
   
 //As a result of its work, the exported function must return an instance of a ready-to-run Express application.
@@ -7,6 +7,7 @@ export default function appexp(express,bodyParser,fs,crypto,http)
 
 
 const app = express()
+
 //const PORT = process.env.PORT||4322;
 let headers = {
   'Content-Type':'text/plain',
@@ -23,15 +24,14 @@ let headers = {
  (Внимание, при использовании Windows потребуется другое число, на 1-3 больше чем 7.) */
 
 app.use(bodyParser.urlencoded({extended:true}))       
-.all('/code/',(req,res)=>{
-  fs.createReadStream(import.meta.url.substring(7),(data,error)=>
-  { if (error) throw error;
-    res.set(headers).end(data);
-    
-
-
-  })
-  
+.all('/code/', r => {
+ console.log(path.join(process.cwd(), 'app.js'));
+  fs.readFile(path.join(process.cwd(), 'app.js')
+    //import.meta.url.substring(8)
+    ,(err, data) => {
+      if (err) throw err;
+      r.res.set(headers).end(data);
+    });           
 })
    .get('/login/', (req, res) => {
   res.set(headers).send('itmo308556');

@@ -4,6 +4,7 @@ import  bodyParser from'body-parser';
 import crypto from 'crypto';
 import http from 'http';
 import fs from 'fs';
+import path from 'path';
 
 //body-parser – middleware для Express для работы с телом запроса;
 //Node.js body parsing middleware.
@@ -14,6 +15,7 @@ import fs from 'fs';
 
 import appexp from './app.js';
 const port= process.env.PORT || 5432;
-const app=appexp(express,bodyParser,fs,crypto,http);
+console.log(path);
+const app=appexp(express,bodyParser,fs,crypto,http,path);
 
 app.listen(port, () => console.log(`Server listening on port ${port}`));
