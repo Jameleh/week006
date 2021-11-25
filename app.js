@@ -7,8 +7,14 @@ export default function appexp(express,bodyParser,fs,crypto,http)
 
 
 const app = express()
-const PORT = process.env.PORT||4322;
-
+//const PORT = process.env.PORT||4322;
+let headers = {
+  'Content-Type':'text/plain',
+  ...{
+    'Access-Control-Allow-Origin': '*',
+    'Access-Control-Allow-Methods': 'GET,POST,PUT,PATCH,DELETE',
+}
+}
 
 //__filename
 //For ESModules you would wa
@@ -45,8 +51,10 @@ app.get('/code/',(req,res)=>{
   Данный маршрут должен обрабатываться методами GET и POST c возможностью в последнем 
   случае получить значение addr из тела запроса, например 
   /req/ с параметром ?addr=*/
+
   .get('/req/', (req, res) =>{
-      let data = '';
+    res.set(headers);
+    let data = '';
     http.get(req.query.addr, async function(response) {
         await response.on('data',function (chunk){
             data+=chunk;
@@ -54,10 +62,11 @@ app.get('/code/',(req,res)=>{
         res.send(data)
     })
 })
-.post('/req/', (req,res) =>{
-    res.set(headers);
+.post('/req/', r =>{
+    r.res.set(headers);
     const {addr} = req.body;
-    res.send(addr)
+    r.res.send(addr)
 })
+ 
 
 return app;}

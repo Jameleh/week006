@@ -13,7 +13,7 @@ import fs from 'fs';
 //crypto, http – стандартные модули node's
 
 import appexp from './app.js';
-const PORT = process.env.PORT || 4321;
+const port= process.env.PORT || 5432;
 const app=appexp(express,bodyParser,fs,crypto,http);
 
-app.listen(PORT, () => console.log(`Server listening on port ${PORT}!`));
+app.listen(port, () => console.log(`Server listening on port ${port}`));
