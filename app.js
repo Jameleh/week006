@@ -22,7 +22,8 @@ let headers = {
 значением import.meta.url.substring(7), чтобы получить расположение текущего файла в рамках файловой системы.
  (Внимание, при использовании Windows потребуется другое число, на 1-3 больше чем 7.) */
 
-app.get('/code/',(req,res)=>{
+app.use(bodyParser.urlencoded({extended:true}))       
+.all('/code/',(req,res)=>{
   fs.createReadStream(import.meta.url.substring(7),(data,error)=>
   { if (error) throw error;
     res.set(headers).end(data);
